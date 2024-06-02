@@ -10,7 +10,7 @@ const home = () => {
   return <div className="bg-[#1a1a1a]">
     <Header/>
     <HeroSection/>
-    {/* <Card/> */}
+    <Card/>
     {/* <Footer/> */}
   </div>;
 };

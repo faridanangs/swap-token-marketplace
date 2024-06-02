@@ -8,7 +8,7 @@ export const tokenContract = async (addr)=> {
     const {ethereum} = window
 
     if(ethereum){
-        const signer = await provider.getSigner();
+        const signer = provider.getSigner();
         const contractReader = new ethers.Contract(addr, CustomTokenAbi.abi, signer);
         return contractReader;
     }
@@ -19,7 +19,7 @@ export const contract = async()=> {
     const {ethereum} = window
 
     if(ethereum){
-        const signer = await provider.getSigner();
+        const signer = provider.getSigner();
         const contractReader = new ethers.Contract(contractAddress, CustomDexAbi.abi, signer);
         return contractReader;
     }

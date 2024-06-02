@@ -3,12 +3,12 @@ import {contract, tokenContract} from "./contract"
 import {toEth} from "./utils"
 
 
-export const contractAddress = "0x6b2bae86f2D01a7a128040dc0f32d0e82CE9f144";
+export const contractAddress = "0xE63ccf11a9B055D07515b62537c8d679Ca52667b";
 
 
 export async function swapEthToToken(tokenName, amount){
     try {
-        const tx = {value: toEth(amount)}
+        const tx = {value: toWei(amount)}
 
         const contractObj = await contract();
         const data = await contractObj.swapEthToToken(tokenName, tx);
@@ -43,7 +43,7 @@ export async function hashValidateAllowance(owner, tokenName, amount){
 export async function swapTokenToEth(tokenName, amount) {
     try {
         const contractObj = await contract();
-        const data = await contractObj.swapTokenToEth(tokenName, toWei(amount));
+        const data = await contractObj.swapTokenToEth(tokenName, amount);
         
         const receipt = await data.await();
         return receipt;
@@ -57,7 +57,7 @@ export async function swapTokenToToken(srcToken, destToken, amount){
     try {
         const contractObj = await contract();
 
-        const data = await contractObj.swapTokenToToken(srcToken, destToken, toWei(amount));
+        const data = await contractObj.swapTokenToToken(srcToken, destToken, amount);
         const receipt = data.wait();
         return receipt
 
@@ -68,7 +68,6 @@ export async function swapTokenToToken(srcToken, destToken, amount){
 
 export async function getTokenBalance(tokenName, address){
     const contractObj = await contract();
-    console.log(address ,tokenName, "cntct objs")
 
     const balance = await contractObj.getBalance(tokenName, address);
     return balance;
@@ -77,7 +76,6 @@ export async function getTokenBalance(tokenName, address){
 export async function getTokenAddress(tokenName){
     try {
         const contractObj = await contract();
-        console.log( tokenName, "cntct obj")
         const address = await contractObj.getTokenAddress(tokenName);
         return address;
     } catch (error) {
@@ -125,7 +123,7 @@ export async function getAllHistory(){
 }
 
 function toWei(amount){
-    const toWei = ethers.utils.parseUnits(amount.toString());
+    const toWei = ethers.utils.parseUnits(amount.toString(), 18);
     return toWei;
 }
 
