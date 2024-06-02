@@ -1,9 +1,10 @@
 import {ethers, BigNumber} from "ethers";
 import {contract, tokenContract} from "./contract"
 import {toEth} from "./utils"
+import { useAccount } from "wagmi";
 
 
-export const contractAddress = "0xE63ccf11a9B055D07515b62537c8d679Ca52667b";
+export const contractAddress = "0xd40A8bBbB7F2EdA84C8888596911C07e52dbd956";
 
 
 export async function swapEthToToken(tokenName, amount){
@@ -24,10 +25,10 @@ export async function swapEthToToken(tokenName, amount){
 export async function hashValidateAllowance(owner, tokenName, amount){
     try {
         const contractObj = await contract();
-        const address = contractObj.getTokenAddress(tokenName);
+        const addressT = await contractObj.getTokenAddress(tokenName);
 
-        const tokenContractObj = await tokenContract(address);
-        const data = await tokenContractObj.allowance(owner, contractAddress);
+        const tokenContractObj = await tokenContract(addressT);
+        const data = await tokenContractObj.allowance(owner, owner);
         
         const result = BigNumber.from(data.toString()).gte(
             BigNumber.from(toWei(amount))
@@ -37,6 +38,17 @@ export async function hashValidateAllowance(owner, tokenName, amount){
         
     } catch (error) {
         return parseErrorMsg(error);
+    }
+}
+
+export async function getTotalSupply(tokenName){
+    try {
+        const contractObj = await contract();
+        const data = await contractObj.getTotalSupply(tokenName);
+        console.log(data)
+        return data;
+    } catch (error) {
+        return parseErrorMsg(error)
     }
 }
 
@@ -58,7 +70,10 @@ export async function swapTokenToToken(srcToken, destToken, amount){
         const contractObj = await contract();
 
         const data = await contractObj.swapTokenToToken(srcToken, destToken, amount);
+        console.log(data, "data")
         const receipt = data.wait();
+        console.log(receipt, "receipe")
+
         return receipt
 
     } catch (error) {
@@ -84,13 +99,13 @@ export async function getTokenAddress(tokenName){
 }
 
 export async function increaseAllowance(tokenName, amount){
-
+    const {address} = useAccount()
     try {
         const contractObj = await contract();
-        const address = contractObj.getTokenAddress(tokenName);
+        const addressT = await contractObj.getTokenAddress(tokenName);
 
-        const tokenContractObj = await tokenContract(address);
-        const data = await tokenContractObj.approve(contractAddress, toWei(amount));
+        const tokenContractObj = await tokenContract(addressT);
+        const data = await tokenContractObj.approve(address, toWei(amount));
         
         const receipe = await data.wait();
         return receipe;
