@@ -41,13 +41,13 @@ const TokenBalance = ({name, walletAddress}) => {
 
 
   return (
-      <div className="flex mx-2 rounded-l rounded-r-lg border-[#7765f3] border-[1px]">
+      <div className="flex mx-2 rounded-l rounded-r-lg border-slate-400 border-[1px]">
         <div className="flex items-center bg-zinc-900 text-zinc-300 w-fit p-2 px-3 rounded-l-lg">
           <p className="text-sm">{name}</p>
           <p className="bg-zinc-800 p-0.5 px-3 ml-3 rounded-lg text-zinc-100">{balance}</p>
         </div>
 
-        <div className="flex items-center bg-[#7765f2] w-fit p-2 px-3 rounded-r-lg">
+        <div className="flex items-center bg-gradient-to-tr from-slate-400 to-slate-600 w-fit p-2 px-3 rounded-r-lg">
           <copyIcon.icon className="h-6 cursor-pointer"
             onClick={()=> {
               navigator.clipboard.writeText(tokenAddress);

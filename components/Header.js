@@ -1,28 +1,30 @@
-import React,{useEffect, useState} from "react";
-import {ConnectButton} from "@rainbow-me/rainbowkit"
-import {useAccount}from "wagmi"
-import toast,{Toaster} from "react-hot-toast";
+import React, { useEffect, useState } from "react";
+import { ConnectButton } from "@rainbow-me/rainbowkit"
+import { useAccount } from "wagmi"
+import toast, { Toaster } from "react-hot-toast";
+import LogoHeader from "../public/image.png"
 
 // internal Import
-import {Menu, Logo, TokenBalance} from "./index"
+import { Menu, Logo, TokenBalance } from "./index"
+import Image from "next/image";
 
 const Header = () => {
   const [tokenBalComp, setTokenBalComp] = useState()
 
-  const {address} = useAccount();
+  const { address } = useAccount();
 
-  const notifyConnectWallet = ()=> toast.error("Connect Wallet", {duration: 5000});
+  const notifyConnectWallet = () => toast.error("Connect Wallet", { duration: 5000 });
 
-  useEffect(()=> {
+  useEffect(() => {
     setTokenBalComp(
       <>
-        <TokenBalance name={"USD Coin"} walletAddress={address}/>
-        <TokenBalance name={"BNB"} walletAddress={address}/>
-        <TokenBalance name={"SHIBA INU"} walletAddress={address}/>
+        <TokenBalance name={"USDC"} walletAddress={address} />
+        <TokenBalance name={"BNB"} walletAddress={address} />
+        <TokenBalance name={"SHIBA INU"} walletAddress={address} />
       </>
     )
 
-    if(!address) notifyConnectWallet();
+    if (!address) notifyConnectWallet();
   }, [address])
 
 
@@ -30,12 +32,10 @@ const Header = () => {
     <header className="p-4 text-gray-100">
       <div className="container flex justify-between h-16 mx-auto">
         <div className="flex">
-          <a href="#" rel="noopener noreferrer" aria-label="Back to homepage" className="flex items-center">
-            <Logo/>
-          </a>
+          <Image src={LogoHeader} rel="noopener noreferrer" alt="Logo" width={60} height={40} aria-label="Back to homepage" className="flex items-center rounded-full" />
           <ul className="items-stretch hidden space-x-3 lg:flex">
             <li className="flex">
-              <a href="" className="flex items-center px-4 -mb-1 dark:border-transparent text-[#7765F3]
+              <a href="" className="flex items-center px-4 -mb-1 dark:border-transparent text-[#fbefef] text-xl
                 border-[#7765f3]
               ">Swap</a>
             </li>
@@ -47,18 +47,18 @@ const Header = () => {
               <a href="#" rel="noopener nopreferrer" className="flex items-center px-4 -mb-1 dark:border-transparent
               ">Pool</a>
             </li>
-           </ul>
+          </ul>
         </div>
         <div className="items-center flex-shrink-0 hidden lg:flex">
-          <TokenBalance name={"USD Coin"} walletAddress={address}/>
-          <TokenBalance name={"SHIBA INU"} walletAddress={address}/>
-          <ConnectButton/>
+          <TokenBalance name={"USDC"} walletAddress={address} />
+          <TokenBalance name={"BNB"} walletAddress={address} />
+          <ConnectButton />
         </div>
         <button className="p-4 lg:hidden">
-          <Menu/>
+          <Menu />
         </button>
       </div>
-      <Toaster/>
+      <Toaster />
     </header>
   )
 };

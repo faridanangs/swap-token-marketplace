@@ -54,7 +54,7 @@ describe("Swap Token", function () {
       expect(await lock.getEthBalance()).to.equal(10000000000000000000n);
     })
 
-    it("Swap 100,000,000,000,000,000 Token BNB to 1 Ether", async () => {
+    it("Swap 100,000,000,000,000,000 Token BNB to 10 Ether", async () => {
       const { lock, owner } = await loadFixture(deployOneYearLockFixture);
     
       const valueInWei = ethers.parseEther("10");

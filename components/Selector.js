@@ -40,7 +40,7 @@ const Selector = ({
   return (
     <Dropdown>
       <Dropdown.Button css={{
-        backgroundColor: selectedItem === DEFAULT_VALUE? "#7765f3": "#2c2f36"
+        backgroundColor: selectedItem === DEFAULT_VALUE? "#94a3b8": "#2c2f36"
       }}>
         {selectedItem}
       </Dropdown.Button>

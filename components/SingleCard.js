@@ -49,7 +49,7 @@ const SingleCard = ({index, name, walletAddress}) => {
     <a href="#" rel="noopener noreferrer" className="text-xs tracki uppercase hover:underline text-[#7765f3]">
     {name} 10 M Supply
     </a>
-    <h3 className="flex-1 py-2 text-lg font-semibold leadi">
+    <h3 className="flex-1 py-2 text-lg font-semibold text-white">
       get {name} token, Limited supply available
     </h3>
     <div className="flex mx-2 pt-[10px]">
@@ -57,7 +57,7 @@ const SingleCard = ({index, name, walletAddress}) => {
         <p className="text-sm">{name}</p>
         <p className="bg-zinc-800 p-0.5 px-3 ml-3 rounded-lg text-zinc-100">{balance}</p>
       </div>
-      <div className="flex items-center p-2 px-2 rounded-r-lg bg-[#7765f3]">
+      <div className="flex items-center p-2 px-2 rounded-r-lg bg-slate-400">
         <copyIcon.icon className="h-6 cursor-pointer" 
           onClick={()=> {
             navigator.clipboard.writeText(tokenAddress);

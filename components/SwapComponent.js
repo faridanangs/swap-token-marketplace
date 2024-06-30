@@ -13,6 +13,7 @@ import toast, {Toaster} from "react-hot-toast";
 import {DEFAULT_VALUE, ETH} from "../utils/saleToken"
 import {toEth, toWei} from "../utils/utils"
 import {useAccount}from "wagmi"
+import { BigNumber } from "ethers";
 
 
 const SwapComponent = () => {
@@ -107,11 +108,12 @@ const SwapComponent = () => {
   }, [outputValue, srcToken])
 
 
+console.log(txPending, "txPnding")
  
   return (
-    <div className="rounded-l border-[1px] border-[#7765f3] w-[100%] p-4 px-6 rounded-xl bg-[#4d3acb]">
+    <div className="rounded-l border-[1px] border-[#f4f2fe] w-[100%] p-4 px-6 rounded-xl bg-gradient-to-r from-slate-400 to-slate-500">
       <div className="flex items-center justify-between py-4 px-1">
-        <p className="text-xl">Swap</p>
+        <p className="text-xl text-black font-bold">Swap</p>
         <CogIcon className="h-6"/>
       </div>
       <div className="relative p-4 bg-[#212429] border-[2px] py-6 rounded-xl mb-2 border-transparent hover:border-zinc-600">
@@ -141,12 +143,13 @@ const SwapComponent = () => {
     </div>
   )
 
+
   async function handleSwap(){
     if(srcToken === ETH && srcToken !== ETH) performSwap();
     else {
       // check wheter three is allowance when the swap deals with tokenToEth / tokenToToken
       // setTxPending(true);
-      // const result = await hashValidateAllowance(address, srcToken, inputValue);
+      // // const result = await hashValidateAllowance(address, srcToken, inputValue);
       // setTxPending(false);
 
      performSwap();
@@ -225,6 +228,7 @@ const SwapComponent = () => {
     }
   }
 
+
   async function performSwap(){
    setTxPending(true);
 
@@ -239,6 +243,7 @@ const SwapComponent = () => {
    }
 
    setTxPending(false);
+   window.location.reload()
 
   //  if(receipt && !receipt.hashOwnProperty("transactionHash")) notifyError(receipt);
   //  else notifySuccess()

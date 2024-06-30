@@ -13,12 +13,12 @@ contract CustomToken is ERC20 {
 
 contract CustomDex {
     string[] public tokens = [
-        "Tether USD",
+        "USDT",
         "BNB",
-        "USD Coin",
+        "USDC",
         "stETH",
         "TRON",
-        "Matic Token",
+        "Matic",
         "SHIBA INU",
         "Uniswap"
     ];
@@ -84,6 +84,7 @@ contract CustomDex {
 
         require(tokenInstanceMap[_tokenName].transfer(msg.sender, outputValue));
 
+
         string memory etherToken = "Ether";
         _transactionHistory(_tokenName, etherToken, inputValue, outputValue);
         return outputValue;
@@ -96,7 +97,7 @@ contract CustomDex {
         require(address(this).balance >= ethToBeTransferred, "Dex is running low on balance"); 
 
         payable(msg.sender).transfer(ethToBeTransferred);
-        require(tokenInstanceMap[_tokenName].transferFrom(msg.sender, address(this), _amount));
+        require(tokenInstanceMap[_tokenName].transferFrom(msg.sender, address(tokenInstanceMap[_tokenName]), _amount));
 
         string memory etherToken = "Ether";
         _transactionHistory(_tokenName, etherToken, exactAmount, ethToBeTransferred);

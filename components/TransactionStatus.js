@@ -3,7 +3,7 @@ import {Loading} from "@nextui-org/react"
 import {Dialog, Transition} from "@headlessui/react"
 
 const TransactionStatus = ({}) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   function handleClose(){
     setOpen(true)
